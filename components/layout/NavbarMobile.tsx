@@ -26,7 +26,7 @@ export default function NavbarMobile() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-amber-500/20 bg-black/95 backdrop-blur-md shadow-2xl">
+    <header className="sticky top-0 z-50 border-b border-blue-500/20 bg-black/95 backdrop-blur-md shadow-2xl">
       {/* Header Bar */}
       <div className="flex h-16 items-center px-2">
         {/* Logo */}
@@ -48,15 +48,15 @@ export default function NavbarMobile() {
             href="https://www.terushebatunggul.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-7 flex-1 items-center justify-center rounded-md bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 px-1 text-center text-[9px] font-extrabold text-black shadow-md shadow-amber-500/20 transition-all duration-300 hover:brightness-110 active:scale-95"
+            className="flex h-7 flex-1 items-center justify-center rounded-md bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 px-1 text-center text-[9px] font-extrabold uppercase text-white shadow-md shadow-blue-500/20 transition-all duration-300 hover:brightness-110 active:scale-95"
           >
             LOGIN
           </a>
 
-          {/* RTP Button (Diperbaiki ke internal route /rtp) */}
+          {/* RTP Button */}
           <Link
             href="/rtp"
-            className="flex h-7 flex-1 items-center justify-center rounded-md bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 px-1 text-center text-[9px] font-extrabold text-black shadow-md shadow-amber-500/20 transition-all duration-300 hover:brightness-110 active:scale-95"
+            className="flex h-7 flex-1 items-center justify-center rounded-md bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 px-1 text-center text-[9px] font-extrabold uppercase text-white shadow-md shadow-blue-500/20 transition-all duration-300 hover:brightness-110 active:scale-95"
           >
             RTP
           </Link>
@@ -64,7 +64,7 @@ export default function NavbarMobile() {
           {/* Register Button */}
           <Link
             href="/register"
-            className="flex h-7 flex-1 items-center justify-center rounded-md bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 px-1 text-center text-[9px] font-extrabold text-black shadow-md shadow-amber-500/20 transition-all duration-300 hover:brightness-110 active:scale-95"
+            className="flex h-7 flex-1 items-center justify-center rounded-md bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 px-1 text-center text-[9px] font-extrabold uppercase text-white shadow-md shadow-blue-500/20 transition-all duration-300 hover:brightness-110 active:scale-95"
           >
             DAFTAR
           </Link>
@@ -74,7 +74,7 @@ export default function NavbarMobile() {
             href="https://wa.me/855887833087"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-7 flex-1 items-center justify-center rounded-md border border-amber-400 bg-black px-1 text-center text-[9px] font-bold text-amber-300 transition-all duration-300 hover:bg-amber-400 hover:text-black active:scale-95"
+            className="flex h-7 flex-1 items-center justify-center rounded-md border border-blue-400 bg-blue-950/40 px-1 text-center text-[9px] font-bold text-blue-300 transition-all duration-300 hover:bg-blue-500 hover:text-white active:scale-95"
           >
             HUBUNGI
           </a>
@@ -83,7 +83,7 @@ export default function NavbarMobile() {
         {/* Hamburger Menu Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-amber-500/30 bg-neutral-900/80 text-amber-400 shadow-sm transition-all duration-300 hover:border-amber-500/60 hover:bg-neutral-800 active:scale-95"
+          className="ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-blue-500/30 bg-neutral-900/80 text-blue-400 shadow-sm transition-all duration-300 hover:border-blue-500/60 hover:bg-neutral-800 active:scale-95"
           aria-label="Toggle Menu"
         >
           {open ? (
@@ -100,7 +100,7 @@ export default function NavbarMobile() {
 
       {/* Mobile Menu Drawer */}
       <div
-        className={`overflow-hidden border-t border-amber-500/10 bg-neutral-950/95 backdrop-blur-xl transition-all duration-300 ease-in-out ${
+        className={`overflow-hidden border-t border-blue-500/10 bg-neutral-950/95 backdrop-blur-xl transition-all duration-300 ease-in-out ${
           open ? "max-h-[600px] opacity-100 py-3" : "max-h-0 opacity-0 py-0"
         }`}
       >
@@ -110,8 +110,8 @@ export default function NavbarMobile() {
 
             const baseClasses = `group relative flex items-center justify-between rounded-xl px-4 py-3 text-xs font-bold tracking-wider transition-all duration-300 ${
               isActive
-                ? "bg-gradient-to-r from-amber-500/20 via-yellow-500/10 to-transparent text-amber-400 border-l-4 border-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.15)]"
-                : "border border-amber-500/10 bg-neutral-900/40 text-neutral-300 hover:border-amber-500/30 hover:bg-neutral-900 hover:text-amber-300"
+                ? "bg-gradient-to-r from-blue-500/20 via-blue-500/10 to-transparent text-blue-400 border-l-4 border-blue-400 shadow-[0_0_12px_rgba(30,111,255,0.15)]"
+                : "border border-blue-500/10 bg-neutral-900/40 text-neutral-300 hover:border-blue-500/30 hover:bg-neutral-900 hover:text-blue-300"
             }`;
 
             return menu.external ? (
@@ -125,7 +125,7 @@ export default function NavbarMobile() {
               >
                 <span>{menu.name}</span>
                 <svg
-                  className="h-4 w-4 text-neutral-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-amber-400"
+                  className="h-4 w-4 text-neutral-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-blue-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -143,7 +143,7 @@ export default function NavbarMobile() {
                 <span>{menu.name}</span>
                 <svg
                   className={`h-4 w-4 transition-transform duration-300 ${
-                    isActive ? "translate-x-1 text-amber-400" : "text-neutral-500 group-hover:translate-x-1 group-hover:text-amber-400"
+                    isActive ? "translate-x-1 text-blue-400" : "text-neutral-500 group-hover:translate-x-1 group-hover:text-blue-400"
                   }`}
                   fill="none"
                   stroke="currentColor"
