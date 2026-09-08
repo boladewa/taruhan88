@@ -10,7 +10,7 @@ export default function RegisterForm() {
 
       {/* ================= Background ================= */}
       <div
-        className="absolute inset-0 bg-center bg-no-repeat"
+        className="absolute inset-0 bg-center bg-no-repeat opacity-40"
         style={{
           backgroundImage: "url('/background/register-bg.png')",
           backgroundSize: "95%",
@@ -20,8 +20,8 @@ export default function RegisterForm() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/35" />
 
-      {/* Glow */}
-      <div className="absolute left-1/2 top-1/2 h-[650px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-500/10 blur-[170px]" />
+      {/* Glow Biru */}
+      <div className="absolute left-1/2 top-1/2 h-[650px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[170px]" />
 
       {/* ================= Content ================= */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:py-10">
@@ -36,13 +36,13 @@ export default function RegisterForm() {
             lg:max-w-2xl
             rounded-[28px]
             border
-            border-yellow-500/20
+            border-blue-500/30
             bg-black/75
             p-5
             sm:p-6
             md:p-8
             backdrop-blur-md
-            shadow-[0_0_80px_rgba(255,196,0,.15)]
+            shadow-[0_0_80px_rgba(30,111,255,.2)]
           "
         >
 
@@ -71,7 +71,7 @@ export default function RegisterForm() {
               text-3xl
               font-extrabold
               tracking-wide
-              text-yellow-400
+              text-blue-400
               sm:text-4xl
               md:text-5xl
             "
@@ -79,8 +79,8 @@ export default function RegisterForm() {
             REGISTRASI ANGGOTA
           </h1>
 
-          {/* Divider */}
-          <div className="mx-auto mt-2 mb-5 h-[2px] w-40 rounded-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
+          {/* Divider Biru */}
+          <div className="mx-auto mt-2 mb-5 h-[2px] w-40 rounded-full bg-gradient-to-r from-transparent via-blue-400 to-transparent" />
 
           {/* ================= Form ================= */}
           <div className="space-y-4 sm:space-y-5">
@@ -112,13 +112,13 @@ export default function RegisterForm() {
             {/* ================= Divider Rekening ================= */}
             <div className="flex items-center py-2">
 
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-yellow-500/30" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500/40" />
 
-              <span className="mx-3 whitespace-nowrap text-sm font-bold tracking-widest text-yellow-400 sm:mx-4 sm:text-base">
+              <span className="mx-3 whitespace-nowrap text-sm font-bold tracking-widest text-blue-400 sm:mx-4 sm:text-base">
                 REKENING BANK
               </span>
 
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-yellow-500/30" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-blue-500/40" />
 
             </div>
 
