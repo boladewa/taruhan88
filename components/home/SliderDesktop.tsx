@@ -31,7 +31,7 @@ export default function SliderDesktop() {
 
   return (
     <section className="mx-auto w-full max-w-[1200px] py-4">
-      <div className="relative w-full overflow-hidden rounded-3xl border border-yellow-500/20 bg-black shadow-2xl shadow-yellow-500/10">
+      <div className="relative w-full overflow-hidden rounded-3xl border border-blue-500/20 bg-black shadow-2xl shadow-blue-500/10">
         <Image
           src={banners[current]}
           alt={`Banner ${current + 1}`}
@@ -44,14 +44,14 @@ export default function SliderDesktop() {
 
         <button
           onClick={prevSlide}
-          className="absolute left-5 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-xl text-white backdrop-blur-md transition-all duration-300 hover:bg-yellow-500 hover:text-black hover:shadow-lg hover:shadow-yellow-500/40"
+          className="absolute left-5 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-xl text-white backdrop-blur-md transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/40"
         >
           ❮
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-5 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-xl text-white backdrop-blur-md transition-all duration-300 hover:bg-yellow-500 hover:text-black hover:shadow-lg hover:shadow-yellow-500/40"
+          className="absolute right-5 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-xl text-white backdrop-blur-md transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/40"
         >
           ❯
         </button>
@@ -63,7 +63,7 @@ export default function SliderDesktop() {
               onClick={() => setCurrent(index)}
               className={`h-3 w-3 rounded-full transition-all duration-300 ${
                 current === index
-                  ? "scale-125 bg-yellow-400 shadow-lg shadow-yellow-400/60"
+                  ? "scale-125 bg-blue-500 shadow-lg shadow-blue-500/60"
                   : "bg-white/40 hover:bg-white/70"
               }`}
             />

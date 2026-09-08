@@ -33,7 +33,7 @@ export default function SliderMobile() {
     <section className="bg-black py-2">
       <div className="px-2">
 
-        <div className="relative overflow-hidden rounded-lg border border-yellow-500/20 bg-[#111]">
+        <div className="relative overflow-hidden rounded-lg border border-blue-500/20 bg-[#111] shadow-lg shadow-blue-500/10">
 
           <Image
             src={banners[current]}
@@ -47,7 +47,7 @@ export default function SliderMobile() {
           {/* Tombol kiri */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg text-white"
+            className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg text-white backdrop-blur-sm transition-all duration-300 hover:bg-blue-600 hover:text-white"
           >
             ❮
           </button>
@@ -55,7 +55,7 @@ export default function SliderMobile() {
           {/* Tombol kanan */}
           <button
             onClick={nextSlide}
-            className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg text-white"
+            className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg text-white backdrop-blur-sm transition-all duration-300 hover:bg-blue-600 hover:text-white"
           >
             ❯
           </button>
@@ -66,10 +66,10 @@ export default function SliderMobile() {
               <button
                 key={index}
                 onClick={() => setCurrent(index)}
-                className={`h-2.5 w-2.5 rounded-full transition ${
+                className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
                   current === index
-                    ? "bg-yellow-400"
-                    : "bg-white/40"
+                    ? "bg-blue-500 shadow-md shadow-blue-500/60 scale-110"
+                    : "bg-white/40 hover:bg-white/70"
                 }`}
               />
             ))}
