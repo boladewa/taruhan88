@@ -5,8 +5,8 @@
 ========================================================= */
 
 :root {
-  --gold: #ffd700;
-  --gold-dark: #b8860b;
+  --gold: #1e6fff;       /* Biru utama (tombol/teks aksen) */
+  --gold-dark: #0044b3;  /* Biru tua (hover/border) */
   --bg: #050505;
 }
 
@@ -40,7 +40,7 @@ body {
 
   background: radial-gradient(
     circle at top,
-    #241400 0%,
+    #0a192f 0%,   /* Diubah dari cokelat/emas tua ke biru gelap malam */
     #090909 35%,
     #000000 100%
   );
@@ -75,7 +75,7 @@ body {
 
 ::selection {
   background: var(--gold);
-  color: #000;
+  color: #fff;
 }
 
 /* =========================================================
@@ -86,12 +86,12 @@ body {
   position: absolute;
   border-radius: 9999px;
 
-  background: #ffd54a;
+  background: #3b82f6;
 
   box-shadow:
-    0 0 4px #ffd54a,
-    0 0 10px #ffbf00,
-    0 0 18px rgba(255,215,0,.45);
+    0 0 4px #3b82f6,
+    0 0 10px #1d4ed8,
+    0 0 18px rgba(30, 111, 255, 0.45);
 
   animation: twinkle ease-in-out infinite;
 }
@@ -119,7 +119,7 @@ body {
 
   border-radius: 999px;
 
-  background: rgba(255,215,0,.6);
+  background: rgba(30, 111, 255, 0.6);
 
   filter: blur(.5px);
 
@@ -148,7 +148,7 @@ body {
 }
 
 /* =========================================================
-   GOLD LINES
+   GOLD LINES (BLUE THEME)
 ========================================================= */
 
 .gold-line {
@@ -160,7 +160,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255,215,0,.7),
+    rgba(30, 111, 255, 0.7),
     transparent
   );
 
