@@ -10,7 +10,7 @@ export default function PhoneInput({ label }: Props) {
           block
           text-xs
           font-semibold
-          text-yellow-400
+          text-blue-400
           sm:text-sm
         "
       >
@@ -23,13 +23,13 @@ export default function PhoneInput({ label }: Props) {
           overflow-hidden
           rounded-xl
           border
-          border-yellow-500/20
+          border-blue-500/20
           bg-[#1d1d1d]
           transition-all
           duration-300
-          focus-within:border-yellow-400
+          focus-within:border-blue-400
           focus-within:ring-2
-          focus-within:ring-yellow-500/30
+          focus-within:ring-blue-500/30
         "
       >
         {/* Kode Negara */}
@@ -39,7 +39,7 @@ export default function PhoneInput({ label }: Props) {
             items-center
             justify-center
             border-r
-            border-yellow-500/20
+            border-blue-500/20
             bg-[#232323]
             px-4
             text-sm

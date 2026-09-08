@@ -59,7 +59,7 @@ export default function FeatureCards() {
                 rounded-2xl
 
                 border
-                border-yellow-500/20
+                border-blue-500/20
 
                 bg-gradient-to-b
                 from-[#1B2332]
@@ -70,9 +70,9 @@ export default function FeatureCards() {
                 duration-300
 
                 hover:-translate-y-1
-                hover:border-yellow-400
+                hover:border-blue-400
                 hover:shadow-xl
-                hover:shadow-yellow-500/20
+                hover:shadow-blue-500/20
               "
             >
               {/* Icon */}
@@ -86,7 +86,7 @@ export default function FeatureCards() {
               </p>
 
               {/* Value */}
-              <h2 className="mt-1 text-3xl font-black leading-none text-yellow-400">
+              <h2 className="mt-1 text-3xl font-black leading-none text-blue-400">
                 {card.value}
               </h2>
 

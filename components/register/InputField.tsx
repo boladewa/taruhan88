@@ -11,14 +11,14 @@ export default function InputField({
 }: InputFieldProps) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-yellow-400">
+      <label className="mb-2 block text-sm font-medium text-blue-400">
         {label}
       </label>
 
       <input
         type={type}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-yellow-500/20 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-yellow-400 focus:ring-2 focus:ring-yellow-500/30"
+        className="w-full rounded-xl border border-blue-500/20 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
       />
     </div>
   );
