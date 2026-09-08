@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   description:
     "Lewat TARUHAN RESMI, nikmati link alternatif terpercaya yang menjamin kelancaran akses Anda. Didukung lisensi agen bola sah dan infrastruktur server terbaru, taruhan jadi jauh lebih aman, stabil, dan transparan",
   
+  // Konfigurasi Verifikasi Google Search Console
+  verification: {
+    google: "_H8PRjc6rX-fm2p9GMzaXhm8t17DiZECiNtYvJCWEdg",
+  },
+
   // Konfigurasi ikon / favicon menggunakan favicon.ico
   icons: {
     icon: "/favicon.ico",
