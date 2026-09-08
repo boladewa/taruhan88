@@ -72,7 +72,7 @@ export default function NavbarDesktop() {
 
             {/* Tombol HUBUNGI */}
             <a
-              href="https://wa.me/85577325308"
+              href="https://wa.me/855887833087"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-11 min-w-[120px] items-center justify-center rounded-xl border border-yellow-400 bg-black px-5 text-sm font-bold uppercase text-yellow-300 transition-all duration-300 hover:scale-105 hover:bg-yellow-400 hover:text-black"

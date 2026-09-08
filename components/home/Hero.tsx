@@ -59,7 +59,7 @@ export default function Hero() {
         </a>
 
         <a
-          href="https://wa.me/85577325308"
+          href="https://wa.me/855887833087"
           target="_blank"
           rel="noopener noreferrer"
           className={secondaryBtnClass}

@@ -27,26 +27,26 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://www.boladewa.online",
+    canonical: "https://taruhan88-ten.vercel.app/",
     languages: {
-      "id-ID": "https://boladewa.online",
+      "id-ID": "https://taruhan88-ten.vercel.app/",
     },
   },
   openGraph: {
     title: "TARUHAN88 | Agent Taruhan88 Terbesar Se-Asia",
     description:
       "Lewat TARUHAN88 RESMI, nikmati link alternatif terpercaya yang menjamin kelancaran akses Anda. Didukung lisensi agen bola sah dan infrastruktur server terbaru, taruhan jadi jauh lebih aman, stabil, dan transparan",
-    url: "https://www.boladewa.online/",
+    url: "https://taruhan88-ten.vercel.app/",
     siteName: "TARUHAN88",
     images: [
       {
-        url: "https://www.boladewa.online/icon.png",
+        url: "https://taruhan88-ten.vercel.app/icon.png",
         width: 800,
         height: 600,
         alt: "TARUHAN88 Logo",
       },
       {
-        url: "https://boladewa.online/icon.png",
+        url: "https://taruhan88-ten.vercel.app/icon.png",
         width: 800,
         height: 600,
         alt: "TARUHAN88 Logo Tanpa WWW",
