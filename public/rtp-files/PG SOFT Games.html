@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PG SOFT Games - Daftar Game & Providers</title>
+
+    <!-- LOGO / FAVICON -->
+    <link rel="icon" type="image/png" href="https://img-1-97.rapidflarecdn.net/images/providerCategory/PGSoft/colorful-light-landscape.png?lang=en">
+    <link rel="shortcut icon" type="image/png" href="https://img-1-97.rapidflarecdn.net/images/providerCategory/PGSoft/colorful-light-landscape.png?lang=en">
+
+    <style>
+                /* =========================================================
+           RESET
+        ========================================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #050b14;
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =========================================================
+           MOBILE HEADER
+        ========================================================= */
+        .mobile-header-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #071326;
+            border-bottom: 1px solid #14284a;
+            padding: 0 15px;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+        }
+
+        .mobile-menu-btn {
+            background: #007bff;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mobile-active-provider-logo {
+            width: 155px;
+            height: 44px;
+            background: #121824;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .mobile-active-provider-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.3) contrast(1.15);
+        }
+
+        /* =========================================================
+           SIDEBAR OVERLAY
+        ========================================================= */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+        .sidebar {
+            width: 300px;
+            height: 100vh;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+
+            background: #071326;
+            border-right: 1px solid #14284a;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 1000;
+            transition: transform .3s ease;
+        }
+
+        .sidebar-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #14284a;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-header h3 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .close-sidebar {
+            display: none;
+            background: none;
+            border: 0;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           PROVIDER GRID
+        ========================================================= */
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+
+            padding: 15px;
+
+            overflow-y: auto;
+            max-height: calc(100vh - 65px);
+        }
+
+        .provider-card {
+            height: 45px;
+            padding: 0;
+
+            background: #112238;
+            border: 1px solid #1b3866;
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            overflow: hidden;
+
+            transition: .2s ease;
+        }
+
+        .provider-card:hover {
+            border-color: #3b82f6;
+            background: #102547;
+        }
+
+        .provider-card.active {
+            background: #007bff;
+            border-color: #60a5fa;
+            box-shadow: 0 0 8px rgba(0, 123, 255, .4);
+        }
+
+        .provider-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 7px;
+        }
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+
+            padding: 25px;
+
+            background: #050b14;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================================
+           GAME GRID
+        ========================================================= */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .game-card {
+            background: #0b1a32;
+            border: 1px solid #14284a;
+            border-radius: 10px;
+            overflow: hidden;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
+
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            border-color: #3b82f6;
+        }
+
+        /* =========================================================
+           GAME IMAGE
+        ========================================================= */
+        .game-img {
+            position: relative;
+            width: 100%;
+            height: 130px;
+
+            background: #112238;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .game-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* =========================================================
+           HOT BADGE
+        ========================================================= */
+        .hot-badge {
+            display: none;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            padding: 3px 8px;
+
+            background: linear-gradient(
+                135deg,
+                #b91c1c,
+                #ef4444
+            );
+
+            color: #fff;
+            font-size: 9px;
+            font-weight: bold;
+
+            border-bottom-right-radius: 8px;
+
+            text-transform: uppercase;
+            letter-spacing: .5px;
+
+            z-index: 2;
+        }
+
+        .game-card.is-hot .hot-badge {
+            display: block;
+        }
+
+        /* =========================================================
+           POLA BUTTON
+        ========================================================= */
+        .pola-btn {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%) scale(.9);
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #3b82f6
+            );
+
+            color: #fff;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            padding: 6px 14px;
+
+            border: 1px solid #60a5fa;
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: .25s ease;
+
+            z-index: 3;
+        }
+
+        .game-img:hover .pola-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* =========================================================
+           GAME INFO
+        ========================================================= */
+        .game-info {
+            padding: 10px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        .game-title-row {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 6px;
+        }
+
+        .game-icon {
+            width: 22px;
+            height: 22px;
+
+            border-radius: 50%;
+            object-fit: cover;
+
+            flex-shrink: 0;
+        }
+
+        .game-title {
+            flex: 1;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            text-align: left;
+            line-height: 1.2;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+        }
+
+        /* =========================================================
+           RTP BAR
+        ========================================================= */
+        @keyframes moveStripes {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 40px 0;
+            }
+        }
+
+        .game-rtp {
+            position: relative;
+
+            width: 100%;
+
+            padding: 5px;
+
+            border-radius: 4px;
+
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+
+            text-align: center;
+
+            overflow: hidden;
+        }
+
+        .game-rtp::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, .22) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, .22) 50%,
+                rgba(255, 255, 255, .22) 75%,
+                transparent 75%,
+                transparent
+            );
+
+            background-size: 40px 40px;
+
+            animation:
+                moveStripes 1.5s linear infinite;
+
+            z-index: 0;
+        }
+
+        .game-rtp span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, .75);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 9999;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: .3s ease;
+
+            padding: 15px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 380px;
+
+            background: #1a2233;
+
+            border: 1px solid #2d3748;
+            border-radius: 14px;
+
+            padding: 15px;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, .6);
+
+            transform: scale(.8);
+
+            transition:
+                transform .3s
+                cubic-bezier(
+                    .175,
+                    .885,
+                    .32,
+                    1.275
+                );
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: #111827;
+
+            padding: 10px 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #27303f;
+            border-radius: 8px;
+
+            margin-bottom: 12px;
+        }
+
+        .modal-header h2 {
+            font-size: 15px;
+            font-weight: bold;
+
+            color: #fff;
+
+            text-transform: uppercase;
+        }
+
+        .modal-close {
+            background: none;
+            border: 0;
+
+            color: #9ca3af;
+
+            font-size: 18px;
+
+            cursor: pointer;
+        }
+
+        .modal-info-box {
+            background: #111827;
+
+            border-radius: 8px;
+
+            padding: 8px 12px;
+
+            margin-bottom: 10px;
+
+            font-size: 12px;
+
+            border: 1px solid #263142;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+
+            padding: 4px 0;
+        }
+
+        .info-row span:last-child {
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+
+        .pola-gacor-btn-title {
+            background: linear-gradient(
+                180deg,
+                #65a30d,
+                #4d7c0f
+            );
+
+            color: #fff;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            padding: 8px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #65a30d;
+        }
+
+        .pola-steps-card {
+            background: #111827;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            border: 1px solid #263142;
+
+            text-align: center;
+
+            margin-bottom: 10px;
+
+            max-height: 200px;
+
+            overflow-y: auto;
+        }
+
+        .step-item {
+            margin-bottom: 10px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: #94a3b8;
+
+            margin-bottom: 3px;
+        }
+
+        .step-action {
+            font-size: 13px;
+            font-weight: bold;
+
+            color: #f8fafc;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 6px;
+        }
+
+        .check {
+            color: #27ae60;
+        }
+
+        .cross {
+            color: #ef4444;
+        }
+
+        .modal-footer-note {
+            font-size: 11px;
+
+            color: #94a3b8;
+
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+        @media (max-width: 768px) {
+
+            .mobile-header-bar {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+
+                top: 0;
+                left: 0;
+
+                transform: translateX(-100%);
+
+                z-index: 1002;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .close-sidebar {
+                display: block;
+            }
+
+            .main-content {
+                padding:
+                    75px
+                    15px
+                    20px
+                    15px;
+            }
+
+            .games-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 10px;
+            }
+
+            .pola-btn {
+                opacity: 1;
+                visibility: visible;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(.85);
+
+                padding: 5px 10px;
+
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         MOBILE HEADER
+    ========================================================== -->
+    <div class="mobile-header-bar">
+
+        <button
+            class="mobile-menu-btn"
+            onclick="toggleSidebar()"
+        >
+            ☰ Providers
+        </button>
+
+        <div class="mobile-active-provider-logo">
+            <img
+                src="https://img-1-97.rapidflarecdn.net/images/providerCategory/PGSoft/colorful-light-landscape.webp?lang=en"
+                alt="PG SOFT GAMES"
+            >
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+    ========================================================== -->
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="toggleSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR PROVIDERS
+    ========================================================== -->
+    <aside class="sidebar" id="sidebarMenu">
+
+        <div class="sidebar-header">
+
+            <h3>Providers</h3>
+
+            <button
+                class="close-sidebar"
+                onclick="toggleSidebar()"
+            >
+                &times;
+            </button>
+
+        </div>
+
+        <div
+            class="providers-grid"
+            id="providersGrid"
+        ></div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================== -->
+    <main class="main-content">
+
+        <div
+            class="content-header"
+            id="contentTitle"
+        >
+            POCKET GAMES SOFT 
+        </div>
+
+        <div
+            class="games-grid"
+            id="gamesContainer"
+        ></div>
+
+    </main>
+
+
+    <!-- =========================================================
+         MODAL POLA
+    ========================================================== -->
+    <div
+        class="modal-overlay"
+        id="polaModal"
+        onclick="closePolaModal(event)"
+    >
+
+        <div
+            class="modal-container"
+            onclick="event.stopPropagation()"
+        >
+
+            <div class="modal-header">
+
+                <h2 id="modalGameTitle">
+                    GAME
+                </h2>
+
+                <button
+                    class="modal-close"
+                    onclick="forceCloseModal()"
+                >
+                    &times;
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="modal-info-box">
+
+                    <div class="info-row">
+                        <span>Stake bet :</span>
+                        <span id="modalStake">
+                            400 - 8.5k
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Jam Gacor :</span>
+                        <span id="modalJam">
+                            05:31 - 07:51
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="pola-gacor-btn-title"
+                    id="polaSectionTitle"
+                >
+                    Pola Gacor
+                </div>
+
+
+                <div
+                    class="pola-steps-card"
+                    id="modalContentCard"
+                >
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Panaskan Mesin !
+                        </div>
+
+                        <div class="step-action">
+                            20
+                            <span class="check">✔</span>
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            Auto
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Naikkan Bet !
+                        </div>
+
+                        <div class="step-action">
+                            10
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                            Auto
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran akhir !
+                        </div>
+
+                        <div class="step-action">
+                            Manual 15
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="modal-footer-note"
+                    id="modalFooterNote"
+                >
+                    Catatan :<br>
+                    lakukan pola di atas minimal 2x!
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+    <script>
+
+        /* =========================================================
+           PROVIDER DATA
+        ========================================================== */
+
+        const providers = [
+
+            ["SBO",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/SBOGames/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["PRAGMATIC PLAY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PragmaticPlay/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["POP",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FatPanda/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["PG SOFT",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PGSoft/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["Spadegaming",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/SpadeGaming/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["FA CHAI",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FaChai/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["FAST SPIN",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FastSpin/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["FUNKY GAMES",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FunkyGames/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["155",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/One55/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["NEXTSPIN",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Nextspin/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["SKYWIND GROUP",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Skywind/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["ADVANT PLAY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AdvantPlay/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["Microgaming",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/MicroGaming/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["JILI",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Jili/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["JDB",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/JDB/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["NOLIMIT CITY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/NoLimitCity/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["AA GAMING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AmazingArtGaming/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["JOKER",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Joker/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["HACKSAW",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Hacksaw/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["TURBO GAMES",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/TurboGames/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["PLAYTECH",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Playtech/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["HABANERO",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Habanero/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["NOVOMATIC",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Novomatic/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["RED TIGER",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/RedTiger/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["SPRIBE",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Spribe/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["PLAY'N GO",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PlaynGo/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["NETENT",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/NetEnt/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["LIVE22",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Live22/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["RSG",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/RSG/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["KINGMAKER",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/KingMaker/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["AVATARUX",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AvatarUX/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["PENGUIN KING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PenguinKing/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["YGGDRASIL",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Yggdrasil/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["SIMPLEPLAY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/SimplePlay/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["EURASIAN GAMING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/EurasianGaming/colorful-light-landscape.png?lang=en"
+            ],
+
+            ["AI GAMING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AIGaming/colorful-light-landscape.png?lang=en"
+            ]
+
+        ];
+
+
+        /* =========================================================
+           GAME DATA
+        ========================================================== */
+
+        const games = [
+
+            {
+                id: "Farmstead Fortune",
+                name: "Farmstead Fortune",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027187.png?version=b4e11dbe&lang=en"
+            },
+
+            {
+                id: "Geisha's Revenge",
+                name: "Geisha's Revenge",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027155.png?version=50f4762b&lang=en"
+            },
+
+            {
+                id: "Chicky Run",
+                name: "Chicky Run",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18021001.png?version=878b80d5&lang=en"
+            },
+
+            {
+                id: "Jack the Giant Hunter",
+                name: "Jack the Giant Hunter",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027163.png?version=032ece0b&lang=en"
+            },
+
+            {
+                id: "Diner Frenzy Spins",
+                name: "Diner Frenzy Spins",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027164.png?version=940ae158&lang=en"
+            },
+
+            {
+                id: "Chocolate Deluxe",
+                name: "Chocolate Deluxe",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027154.png?version=93eeda7c&lang=en"
+            },
+
+            {
+                id: "Rio Fantasia",
+                name: "Rio Fantasia",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027153.png?version=7223d68e&lang=en"
+            },
+
+            {
+                id: "Museum Wonders",
+                name: "Museum Wonders",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027152.png?version=48ad8c35&lang=en"
+            },
+
+            {
+                id: "Three Crazy Piggies",
+                name: "Three Crazy Piggies",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027150.png?version=54a30d16&lang=en"
+            },
+
+            {
+                id: "Oishi Delights",
+                name: "Oishi Delights",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027151.png?version=7b064a8a&lang=en"
+            },
+
+            {
+                id: "Mahjong Ways 2",
+                name: "Mahjong Ways 2",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802747.png?version=9daad310&lang=en"
+            },
+
+            {
+                id: "Yakuza Honor",
+                name: "Yakuza Honor",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027148.png?version=fa318c81&lang=en"
+            },
+
+            {
+                id: "Mahjong Ways",
+                name: "Mahjong Ways",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802737.png?version=7e9981bd&lang=en"
+            },
+
+            {
+                id: "Treasures of Aztec",
+                name: "Treasures of Aztec",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802757.png?version=4fc10418&lang=en"
+            },
+
+            {
+                id: "Wild Bounty Showdown",
+                name: "Wild Bounty Showdown",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027107.png?version=99832740&lang=en"
+            },
+
+            {
+                id: "Anubis Wrath",
+                name: "Anubis Wrath",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027143.png?version=d6f2916d&lang=en"
+            },
+
+            {
+                id: "Lucky Neko",
+                name: "Lucky Neko",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802756.png?version=2a945b10&lang=en"
+            },
+
+            {
+                id: "Tornado Rampage",
+                name: "Tornado Rampage",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027186.png?version=0c598a70&lang=en"
+            },
+
+            {
+                id: "Monkeys Wild Party",
+                name: "Monkeys Wild Party",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027185.png?version=f26d7cfc&lang=en"
+            },
+
+            {
+                id: "Zombie Blasters",
+                name: "Zombie Blasters",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027184.png?version=814e7bf4&lang=en"
+            },
+
+            {
+                id: "Super Wildrix",
+                name: "Super Wildrix",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027183.png?version=13753b69&lang=en"
+            },
+
+            {
+                id: "Wild Bandito",
+                name: "Wild Bandito",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802777.png?version=1a7e73cb&lang=en",
+            },
+
+            {
+                id: "Zombie Outbreak",
+                name: "Zombie Outbreak",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027144.png?version=488d48a8&lang=en"
+            },
+
+            {
+                id: "Mystic Potion",
+                name: "Mystic Potion",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027142.png?version=52f9fd77&lang=en"
+            },
+
+            {
+                id: "Songkran Splash",
+                name: "Songkran Splash",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027120.png?version=c13a15d3&lang=en"
+            },
+
+            {
+                id: "Pinata Wins",
+                name: "Pinata Wins",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027141.png?version=cd6c43be&lang=en"
+            },
+
+            {
+                id: "Dragon Hatch",
+                name: "Dragon Hatch",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802744.png?version=7aeb3fae&lang=en"
+            },
+
+            {
+                id: "Tsar Treasures",
+                name: "Tsar Treasures",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027134.png?version=1d133dd2&lang=en"
+            },
+
+            {
+                id: "Lucky Piggy",
+                name: "Lucky Piggy",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027103.png?version=0d01cc1d&lang=en"
+            },
+
+            {
+                id: "Rave Party Fever",
+                name: "Rave Party Fever",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027115.png?version=53ea67b0&lang=en"
+            },
+
+            {
+                id: "Fortune Rabbit",
+                name: "Fortune Rabbit",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg18027114.png?version=93df50ef&lang=en"
+            },
+
+            {
+                id: "Destiny of Sun and Moon",
+                name: "Destiny of Sun and Moon",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802797.png?version=58d42c9b&lang=en"
+            },
+
+            {
+                id: "Fortune Tiger",
+                name: "Fortune Tiger",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802795.png?version=1a824bdc&lang=en"
+            },
+
+            {
+                id: "Ganesha Fortune",
+                name: "Ganesha Fortune",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802745.png?version=c946a41a&lang=en"
+            },
+
+            {
+                id: "Cocktail Nights",
+                name: "Cocktail Nights",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802792.png?version=9828de6e&lang=en"
+            },
+
+            {
+                id: "Caishen Wins",
+                name: "Caishen Wins",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802740.png?version=a00f4879&lang=en"
+            },
+
+            {
+                id: "Ways of the Qilin",
+                name: "Ways of the Qilin",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802778.png?version=220ea888&lang=en"
+            },
+
+            {
+                id: "Dreams of Macau",
+                name: "Dreams of Macau",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802768.png?version=52d100d1&lang=en"
+            },
+
+            {
+                id: "Crypto Gold",
+                name: "Crypto Gold",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802774.png?version=4deec804&lang=en"
+            },
+
+            {
+                id: "The Great Icescape",
+                name: "The Great Icescape",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802738.png?version=ff25bd10&lang=en"
+            },
+
+            {
+                id: "Dragon Tiger Luck",
+                name: "Dragon Tiger Luck",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802746.png?version=a6924d1b&lang=en"
+            },
+
+            {
+                id: "Fortune Mouse",
+                name: "Fortune Mouse",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg1802735.png?version=60aceb94&lang=en"
+            }
+
+        ];
+                /* =========================================================
+           ELEMENT
+        ========================================================== */
+
+        const providersGrid =
+            document.getElementById("providersGrid");
+
+        const gamesContainer =
+            document.getElementById("gamesContainer");
+
+        const sidebar =
+            document.getElementById("sidebarMenu");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+
+        /* =========================================================
+           RENDER PROVIDERS
+        ========================================================== */
+
+        function renderProviders() {
+
+            providersGrid.innerHTML = "";
+
+            providers.forEach(([name, image]) => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "provider-card";
+
+                if (
+                    name.toLowerCase() ===
+                    "pg soft"
+                ) {
+                    card.classList.add("active");
+                }
+
+                card.dataset.provider = name;
+
+                card.innerHTML = `
+                    <img
+                        src="${image}"
+                        alt="${name}"
+                    >
+                `;
+
+                /*
+                 * Untuk sementara provider diarahkan
+                 * sesuai nama file provider.
+                 *
+                 * Nanti saat kita rapikan index.html,
+                 * bagian ini yang akan kita ubah.
+                 */
+                card.addEventListener("click", () => {
+
+                    const fileName =
+                        name + " Games.html";
+
+                    window.location.href = fileName;
+
+                });
+
+                providersGrid.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =========================================================
+           RENDER GAMES
+        ========================================================== */
+
+        function renderGames() {
+
+            gamesContainer.innerHTML = "";
+
+            games.forEach(game => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "game-card";
+
+                card.dataset.gameId =
+                    game.id;
+
+                const buttonFunction =
+    `openPolaModal('${escapeQuotes(game.name)}')`;
+
+                card.innerHTML = `
+
+                    <div class="game-img">
+
+                        <div class="hot-badge">
+                            HOT GAME
+                        </div>
+
+                        <img
+                            src="${game.img}"
+                            alt="${game.name}"
+                            loading="lazy"
+                            onerror="this.style.display='none'"
+                        >
+
+                        <button
+                            class="pola-btn"
+                            onclick="${buttonFunction}"
+                        >
+                            POLA
+                        </button>
+
+                    </div>
+
+                    <div class="game-info">
+
+                        <div class="game-title-row">
+
+                            <img
+                                src="https://img-1-97.rapidflarecdn.net/images/brandProvider/PGSoft/colorful-light.png"
+                                class="game-icon"
+                                alt="pg soft"
+                            >
+
+                            <div class="game-title">
+                                ${game.name}
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="game-rtp"
+                            data-rtp="0"
+                        >
+                            <span>0%</span>
+                        </div>
+
+                    </div>
+                `;
+
+                gamesContainer.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =========================================================
+           ESCAPE QUOTE
+        ========================================================== */
+
+        function escapeQuotes(text) {
+
+            return text
+                .replace(/\\/g, "\\\\")
+                .replace(/'/g, "\\'");
+
+        }
+
+
+        /* =========================================================
+           SIDEBAR MOBILE
+        ========================================================== */
+
+        function toggleSidebar() {
+
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+
+        }
+
+
+        /* =========================================================
+           RTP + POLA SYSTEM — 1 PAKET SETIAP 35 MENIT
+        ========================================================== */
+
+        const RTP_INTERVAL = 35 * 60 * 1000;
+        const RTP_PACKAGE_KEY = "pgsoft_35menit_rtp_pola_package_v2";
+
+        /*
+         * Satu period = 35 menit.
+         * Refresh tidak membuat paket baru.
+         * RTP dan pola selalu berasal dari paket periode yang sama.
+         */
+        function getCurrentPeriodId() {
+            return Math.floor(Date.now() / RTP_INTERVAL);
+        }
+
+        /* Random generator khusus periode.
+         * Seed berasal dari periodId sehingga:
+         * - refresh = data tetap sama
+         * - periode baru = data baru
+         */
+        function createSeededRandom(seed) {
+            let value = Number(seed) >>> 0;
+
+            return function() {
+                value = (value * 1664525 + 1013904223) >>> 0;
+                return value / 4294967296;
+            };
+        }
+
+        function getSeededNumber(random, min, max) {
+            return Math.floor(
+                random() * (max - min + 1)
+            ) + min;
+        }
+
+        function getSeededItem(random, array) {
+            return array[
+                Math.floor(random() * array.length)
+            ];
+        }
+
+        function createRTPPackage(periodId) {
+
+            const random = createSeededRandom(
+                periodId + 20260824
+            );
+
+            const data = {};
+            const patterns = {};
+
+            games.forEach(game => {
+
+                /* RTP 15% - 98% */
+                data[game.id] =
+                    getSeededNumber(
+                        random,
+                        15,
+                        98
+                    );
+
+                /*
+                 * Pola dibuat satu kali untuk setiap game
+                 * pada periode 35 menit ini.
+                 */
+                patterns[game.id] =
+                    getRandomSpinPatterns(random);
+
+            });
+
+            return {
+                periodId: periodId,
+                rtp: data,
+                patterns: patterns
+            };
+        }
+
+        function getCurrentRTPPackage() {
+
+            const periodId =
+                getCurrentPeriodId();
+
+            let packageData = null;
+
+            try {
+                packageData = JSON.parse(
+                    localStorage.getItem(
+                        RTP_PACKAGE_KEY
+                    ) || "null"
+                );
+            } catch (error) {
+                packageData = null;
+            }
+
+            /*
+             * Jika belum ada paket atau periodenya sudah berganti,
+             * buat paket RTP + pola yang baru secara bersamaan.
+             */
+            if (
+                !packageData ||
+                Number(packageData.periodId) !== periodId ||
+                !packageData.rtp ||
+                !packageData.patterns
+            ) {
+
+                packageData =
+                    createRTPPackage(periodId);
+
+                try {
+                    localStorage.setItem(
+                        RTP_PACKAGE_KEY,
+                        JSON.stringify(packageData)
+                    );
+                } catch (error) {
+                    /* Tetap lanjut memakai paket di memory. */
+                }
+            }
+
+            return packageData;
+        }
+
+        function generateRTP() {
+
+            const packageData =
+                getCurrentRTPPackage();
+
+            const data =
+                packageData.rtp;
+
+            document
+                .querySelectorAll(".game-card")
+                .forEach(card => {
+
+                    const gameId =
+                        card.dataset.gameId;
+
+                    /*
+                     * Jangan gunakan fallback 50%.
+                     * Jika data periode belum ada, buat ulang paket.
+                     */
+                    let rtp = data[gameId];
+
+                    if (
+                        typeof rtp !== "number"
+                    ) {
+                        const freshPackage =
+                            createRTPPackage(
+                                getCurrentPeriodId()
+                            );
+
+                        rtp =
+                            freshPackage.rtp[gameId];
+
+                        try {
+                            localStorage.setItem(
+                                RTP_PACKAGE_KEY,
+                                JSON.stringify(
+                                    freshPackage
+                                )
+                            );
+                        } catch (error) {}
+                    }
+
+                    const rtpElement =
+                        card.querySelector(
+                            ".game-rtp"
+                        );
+
+                    const rtpText =
+                        rtpElement.querySelector(
+                            "span"
+                        );
+
+                    rtpText.innerText =
+                        rtp + "%";
+
+                    let color;
+
+                    if (rtp <= 35) {
+                        color = "#e74c3c";
+                    } else if (rtp <= 74) {
+                        color = "#f1c40f";
+                    } else {
+                        color = "#27ae60";
+                    }
+
+                    /* HOT GAME jika RTP >= 75% */
+                    if (rtp >= 75) {
+                        card.classList.add(
+                            "is-hot"
+                        );
+                    } else {
+                        card.classList.remove(
+                            "is-hot"
+                        );
+                    }
+
+                    rtpElement.style.background =
+                        `linear-gradient(
+                            90deg,
+                            ${color} ${rtp}%,
+                            #111827 ${rtp}%
+                        )`;
+
+                    rtpElement.style.border =
+                        `1px solid ${color}`;
+                });
+        }
+
+
+        /* =========================================================
+           RANDOM DATA POPUP
+        ========================================================== */
+
+        const autoOptions = [
+            10,
+            30,
+            50,
+            80
+        ];
+
+        const manualOptions = [
+            1,
+            5,
+            10,
+            15,
+            20,
+            25
+        ];
+
+        const stakeRanges = [
+            "200 - 5.0k",
+            "400 - 8.5k",
+            "800 - 9.8k",
+            "1.000 - 15.0k",
+            "200 - 20.0k"
+        ];
+
+        function getRandomItem(array) {
+            return array[
+                Math.floor(
+                    Math.random() * array.length
+                )
+            ];
+        }
+
+        function getRandomIcons(random) {
+
+            const symbols = [
+                `
+                <span class="check">✔</span>
+                <span class="cross">✖</span>
+                <span class="check">✔</span>
+                `,
+                `
+                <span class="cross">✖</span>
+                <span class="cross">✖</span>
+                <span class="check">✔</span>
+                `,
+                `
+                <span class="cross">✖</span>
+                <span class="check">✔</span>
+                <span class="check">✔</span>
+                `,
+                `
+                <span class="check">✔</span>
+                <span class="cross">✖</span>
+                <span class="cross">✖</span>
+                `,
+                `
+                <span class="cross">✖</span>
+                <span class="cross">✖</span>
+                <span class="cross">✖</span>
+                `
+            ];
+
+            return getSeededItem(random, symbols);
+        }
+
+
+        /* =========================================================
+           RANDOM TIME
+        ========================================================== */
+
+        function generateRandomTime() {
+
+            const now =
+                new Date();
+
+            const startHour =
+                now.getHours();
+
+            const startMinute =
+                now.getMinutes();
+
+            const duration =
+                15 +
+                Math.floor(
+                    Math.random() * 30
+                );
+
+            let endMinute =
+                startMinute + duration;
+
+            let endHour =
+                startHour;
+
+            if (endMinute >= 60) {
+                endMinute -= 60;
+                endHour =
+                    (startHour + 1) % 24;
+            }
+
+            const format =
+                (hour, minute) => {
+                    return (
+                        String(hour).padStart(2, "0") +
+                        ":" +
+                        String(minute).padStart(2, "0")
+                    );
+                };
+
+            return (
+                format(startHour, startMinute) +
+                " - " +
+                format(endHour, endMinute)
+            );
+        }
+
+
+        /* =========================================================
+           PG SOFT - RANDOM SPIN PATTERN
+        ========================================================== */
+
+        function getRandomNumber(min, max) {
+            return Math.floor(
+                Math.random() * (max - min + 1)
+            ) + min;
+        }
+
+        function getRandomSpinPatterns(random) {
+
+            const patterns = [
+                `🎯 Manual Spin Biasa Off Turbo ${getSeededNumber(random, 1, 25)}x`,
+                `🎯 Manual Spin Turbo On Turbo ${getSeededNumber(random, 1, 25)}x`,
+                `🎯 Auto Spin On Turbo ${getSeededItem(random, autoOptions)}x`,
+                `🎯 Auto Spin Off Turbo ${getSeededItem(random, autoOptions)}x`
+            ];
+
+            /* Acak urutan pola dalam paket periode ini. */
+            for (
+                let i = patterns.length - 1;
+                i > 0;
+                i--
+            ) {
+                const j = Math.floor(
+                    random() * (i + 1)
+                );
+
+                [patterns[i], patterns[j]] =
+                    [patterns[j], patterns[i]];
+            }
+
+            return patterns;
+        }
+
+
+        let currentModalGame =
+            null;
+
+
+        function renderRandomSpinPatterns(gameName) {
+
+            const packageData =
+                getCurrentRTPPackage();
+
+            const patterns =
+                packageData.patterns[gameName];
+
+            document
+                .getElementById("modalContentCard")
+                .innerHTML = patterns
+                    .map(pattern => `
+                        <div class="step-item">
+                            <div class="step-action">
+                                ${pattern}
+                            </div>
+                        </div>
+                    `)
+                    .join("");
+        }
+
+
+        /* =========================================================
+           OPEN POLA MODAL
+        ========================================================== */
+
+        function openPolaModal(gameName) {
+
+            currentModalGame =
+                gameName;
+
+            /* RTP + pola selalu mengambil paket 35 menit yang sama. */
+            getCurrentRTPPackage();
+
+            document
+                .getElementById("modalGameTitle")
+                .innerText =
+                gameName.toUpperCase();
+
+            document
+                .getElementById("modalStake")
+                .innerText =
+                getRandomItem(stakeRanges);
+
+            document
+                .getElementById("modalJam")
+                .innerText =
+                generateRandomTime();
+
+            document
+                .getElementById("polaSectionTitle")
+                .innerText =
+                "Pola Gacor";
+
+            renderRandomSpinPatterns(
+                gameName
+            );
+
+            document
+                .getElementById("modalFooterNote")
+                .innerHTML =
+                "Catatan :<br>lakukan pola di atas minimal 2x!";
+
+            document
+                .getElementById("polaModal")
+                .classList.add("active");
+        }
+
+
+        /* =========================================================
+           AUTO UPDATE SETIAP PERIODE 35 MENIT
+        ========================================================== */
+
+        let activePeriodId =
+            getCurrentPeriodId();
+
+        setInterval(
+            function() {
+
+                const newPeriodId =
+                    getCurrentPeriodId();
+
+                if (
+                    newPeriodId ===
+                    activePeriodId
+                ) {
+                    return;
+                }
+
+                /* Periode baru = RTP + pola baru sekaligus. */
+                activePeriodId =
+                    newPeriodId;
+
+                generateRTP();
+
+                const modal =
+                    document.getElementById("polaModal");
+
+                if (
+                    modal &&
+                    modal.classList.contains("active") &&
+                    currentModalGame
+                ) {
+                    renderRandomSpinPatterns(
+                        currentModalGame
+                    );
+                }
+            },
+            1000
+        );
+
+
+        /* =========================================================
+           CLOSE MODAL
+        ========================================================== */
+
+        function closePolaModal(event) {
+
+            if (
+                event &&
+                event.target !==
+                document.getElementById("polaModal")
+            ) {
+                return;
+            }
+
+            document
+                .getElementById("polaModal")
+                .classList.remove("active");
+
+        }
+
+
+        function forceCloseModal() {
+
+            document
+                .getElementById("polaModal")
+                .classList.remove("active");
+
+        }
+
+
+        /* =========================================================
+           INIT
+        ========================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                renderProviders();
+
+                renderGames();
+
+                generateRTP();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

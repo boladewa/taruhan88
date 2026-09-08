@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RTP Taruhan88 - Providers</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./faviconrtp.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="./faviconrtp.png?v=2">
+    <link rel="shortcut icon" type="image/png" href="./faviconrtp.png?v=2">
+
+    <style>
+        /* RESET */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* BODY */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #050b14;
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* MOBILE HEADER */
+        .mobile-header-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #071326;
+            border-bottom: 1px solid #14284a;
+            padding: 0 15px;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .mobile-menu-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* OVERLAY */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 300px;
+            background-color: #071326;
+            border-right: 1px solid #14284a;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        /* SIDEBAR HEADER */
+        .sidebar-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #14284a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-header h3 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .close-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* PROVIDERS GRID */
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: calc(100vh - 65px);
+        }
+
+        /* SCROLLBAR */
+        .providers-grid::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .providers-grid::-webkit-scrollbar-track {
+            background: #071326;
+        }
+
+        .providers-grid::-webkit-scrollbar-thumb {
+            background: #1b3866;
+            border-radius: 5px;
+        }
+
+        /* PROVIDER CARD */
+        .provider-card {
+            background-color: #0b1a32;
+            border: 1px solid #1b3866;
+            border-radius: 8px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #ffffff;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        /* HOVER */
+        .provider-card:hover {
+            border-color: #3b82f6;
+            background-color: #102547;
+        }
+
+        /* PROVIDER IMAGE */
+        .provider-card.img-card {
+            padding: 0;
+            background-color: #112238;
+        }
+
+        .provider-card.img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 7px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex-grow: 1;
+            padding: 25px;
+            overflow-y: auto;
+            background-color: #050b14;
+            min-width: 0;
+            min-height: 100vh;
+        }
+
+        .content-box {
+            width: 100%;
+            min-height: calc(100vh - 50px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #07101d;
+            border: 1px solid #14284a;
+            border-radius: 10px;
+        }
+
+        .content-message {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .content-message h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .content-message p {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+
+            .mobile-header-bar {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                transform: translateX(-100%);
+                z-index: 1002;
+                width: 300px;
+                height: 100vh;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .close-sidebar {
+                display: block;
+            }
+
+            .main-content {
+                width: 100%;
+                padding: 75px 15px 20px 15px;
+                min-height: 100vh;
+            }
+
+            .content-box {
+                min-height: calc(100vh - 95px);
+            }
+        }
+
+        /* HP KECIL */
+        @media (max-width: 420px) {
+
+            .sidebar {
+                width: 300px;
+            }
+
+            .mobile-header-bar {
+                padding: 0 12px;
+            }
+
+            .providers-grid {
+                gap: 8px;
+                padding: 15px;
+            }
+
+            .provider-card {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MOBILE HEADER -->
+    <div class="mobile-header-bar">
+        <button
+            class="mobile-menu-btn"
+            onclick="toggleSidebar()">
+            ☰ Providers
+        </button>
+    </div>
+
+    <!-- OVERLAY -->
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="toggleSidebar()">
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside
+        class="sidebar"
+        id="sidebarMenu">
+
+        <!-- SIDEBAR HEADER -->
+        <div class="sidebar-header">
+            <h3>Providers</h3>
+
+            <button
+                class="close-sidebar"
+                onclick="toggleSidebar()">
+                &times;
+            </button>
+        </div>
+
+        <!-- PROVIDERS -->
+        <div
+            class="providers-grid"
+            id="providersGrid">
+
+            <!-- SBO -->
+            <a href="SBO Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/SBOGames/colorful-light-landscape.png?lang=en"
+                    alt="SBO Games">
+            </a>
+
+            <!-- PRAGMATIC PLAY -->
+            <a href="PRAGMATIC PLAY Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/PragmaticPlay/colorful-light-landscape.png?lang=en"
+                    alt="Pragmatic Play">
+            </a>
+
+            <!-- POP -->
+            <a href="POP Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/FatPanda/colorful-light-landscape.png?lang=en"
+                    alt="POP">
+            </a>
+
+            <!-- PG SOFT -->
+            <a href="PG SOFT Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/PGSoft/colorful-light-landscape.png?lang=en"
+                    alt="PG Soft">
+            </a>
+
+            <!-- SPADEGAMING -->
+            <a href="Spadegaming Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/SpadeGaming/colorful-light-landscape.png?lang=en"
+                    alt="Spadegaming">
+            </a>
+
+            <!-- FA CHAI -->
+            <a href="FA CHAI Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/FaChai/colorful-light-landscape.png?lang=en"
+                    alt="FA CHAI">
+            </a>
+
+            <!-- FAST SPIN -->
+            <a href="FAST SPIN Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/FastSpin/colorful-light-landscape.png?lang=en"
+                    alt="FAST SPIN">
+            </a>
+
+            <!-- FUNKY GAMES -->
+            <a href="FUNKY GAMES Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/FunkyGames/colorful-light-landscape.png?lang=en"
+                    alt="FUNKY GAMES">
+            </a>
+
+            <!-- 155 -->
+            <a href="155 Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/One55/colorful-light-landscape.png?lang=en"
+                    alt="155">
+            </a>
+
+            <!-- NEXTSPIN -->
+            <a href="NEXTSPIN Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Nextspin/colorful-light-landscape.png?lang=en"
+                    alt="NEXTSPIN">
+            </a>
+
+            <!-- SKYWIND -->
+            <a href="SKYWIND GROUP Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Skywind/colorful-light-landscape.png?lang=en"
+                    alt="SKYWIND GROUP">
+            </a>
+
+            <!-- ADVANT PLAY -->
+            <a href="ADVANT PLAY Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/AdvantPlay/colorful-light-landscape.png?lang=en"
+                    alt="ADVANT PLAY">
+            </a>
+
+            <!-- MICROGAMING -->
+            <a href="Microgaming Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/MicroGaming/colorful-light-landscape.png?lang=en"
+                    alt="Microgaming">
+            </a>
+
+            <!-- JILI -->
+            <a href="JILI Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Jili/colorful-light-landscape.png?lang=en"
+                    alt="JILI">
+            </a>
+
+            <!-- JDB -->
+            <a href="JDB Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/JDB/colorful-light-landscape.png?lang=en"
+                    alt="JDB">
+            </a>
+
+            <!-- NOLIMIT CITY -->
+            <a href="NOLIMIT CITY Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/NoLimitCity/colorful-light-landscape.png?lang=en"
+                    alt="NOLIMIT CITY">
+            </a>
+
+            <!-- AA GAMING -->
+            <a href="AA GAMING Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/AmazingArtGaming/colorful-light-landscape.png?lang=en"
+                    alt="AA GAMING">
+            </a>
+
+            <!-- JOKER -->
+            <a href="JOKER Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Joker/colorful-light-landscape.png?lang=en"
+                    alt="JOKER">
+            </a>
+
+            <!-- HACKSAW -->
+            <a href="HACKSAW Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Hacksaw/colorful-light-landscape.png?lang=en"
+                    alt="HACKSAW">
+            </a>
+
+            <!-- TURBO GAMES -->
+            <a href="TURBO GAMES Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/TurboGames/colorful-light-landscape.png?lang=en"
+                    alt="TURBO GAMES">
+            </a>
+
+            <!-- PLAYTECH -->
+            <a href="PLAYTECH Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Playtech/colorful-light-landscape.png?lang=en"
+                    alt="PLAYTECH">
+            </a>
+
+            <!-- HABANERO -->
+            <a href="HABANERO Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Habanero/colorful-light-landscape.png?lang=en"
+                    alt="HABANERO">
+            </a>
+
+            <!-- NOVOMATIC -->
+            <a href="NOVOMATIC Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Novomatic/colorful-light-landscape.png?lang=en"
+                    alt="NOVOMATIC">
+            </a>
+
+            <!-- RED TIGER -->
+            <a href="RED TIGER Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/RedTiger/colorful-light-landscape.png?lang=en"
+                    alt="RED TIGER">
+            </a>
+
+            <!-- SPRIBE -->
+            <a href="SPRIBE Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Spribe/colorful-light-landscape.png?lang=en"
+                    alt="SPRIBE">
+            </a>
+
+            <!-- PLAY'N GO -->
+            <a href="PLAYN GO Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/PlaynGo/colorful-light-landscape.png?lang=en"
+                    alt="PLAY'N GO">
+            </a>
+
+            <!-- NETENT -->
+            <a href="NETENT Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/NetEnt/colorful-light-landscape.png?lang=en"
+                    alt="NETENT">
+            </a>
+
+            <!-- LIVE22 -->
+            <a href="LIVE22 Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Live22/colorful-light-landscape.png?lang=en"
+                    alt="LIVE22">
+            </a>
+
+            <!-- RSG -->
+            <a href="RSG Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/RSG/colorful-light-landscape.png?lang=en"
+                    alt="RSG">
+            </a>
+
+            <!-- KINGMAKER -->
+            <a href="KINGMAKER Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/KingMaker/colorful-light-landscape.png?lang=en"
+                    alt="KINGMAKER">
+            </a>
+
+            <!-- AVATARUX -->
+            <a href="AVATARUX Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/AvatarUX/colorful-light-landscape.png?lang=en"
+                    alt="AVATARUX">
+            </a>
+
+            <!-- PENGUIN KING -->
+            <a href="PENGUIN KING Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/PenguinKing/colorful-light-landscape.png?lang=en"
+                    alt="PENGUIN KING">
+            </a>
+
+            <!-- YGGDRASIL -->
+            <a href="YGGDRASIL Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/Yggdrasil/colorful-light-landscape.png?lang=en"
+                    alt="YGGDRASIL">
+            </a>
+
+            <!-- SIMPLEPLAY -->
+            <a href="SIMPLEPLAY Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/SimplePlay/colorful-light-landscape.png?lang=en"
+                    alt="SIMPLEPLAY">
+            </a>
+
+            <!-- EURASIAN GAMING -->
+            <a href="EURASIAN GAMING Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/EurasianGaming/colorful-light-landscape.png?lang=en"
+                    alt="EURASIAN GAMING">
+            </a>
+
+            <!-- AI GAMING -->
+            <a href="AI GAMING Games.html" class="provider-card img-card">
+                <img
+                    src="https://img-1-97.rapidflarecdn.net/images/providerCategory/AIGaming/colorful-light-landscape.png?lang=en"
+                    alt="AI GAMING">
+            </a>
+
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <div class="content-box">
+
+            <div class="content-message">
+
+                <h1>Providers</h1>
+
+                <p>
+                    Pilih provider dari menu untuk membuka halaman masing-masing.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        function toggleSidebar() {
+
+            const sidebar = document.getElementById("sidebarMenu");
+            const overlay = document.getElementById("sidebarOverlay");
+
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        }
+
+        /* Tutup sidebar setelah provider dipilih di mobile */
+
+        document
+            .querySelectorAll(".provider-card")
+            .forEach(function(provider) {
+
+                provider.addEventListener("click", function() {
+
+                    if (window.innerWidth <= 768) {
+
+                        const sidebar =
+                            document.getElementById("sidebarMenu");
+
+                        const overlay =
+                            document.getElementById("sidebarOverlay");
+
+                        sidebar.classList.remove("active");
+                        overlay.classList.remove("active");
+                    }
+
+                });
+
+            });
+
+        /* Reset sidebar ketika kembali ke desktop */
+
+        window.addEventListener("resize", function() {
+
+            if (window.innerWidth > 768) {
+
+                const sidebar =
+                    document.getElementById("sidebarMenu");
+
+                const overlay =
+                    document.getElementById("sidebarOverlay");
+
+                sidebar.classList.remove("active");
+                overlay.classList.remove("active");
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

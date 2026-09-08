@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBO Games - Daftar Game & Providers</title>
+
+    <!-- LOGO / FAVICON -->
+    <link rel="icon" type="image/png" href="https://img-1-97.rapidflarecdn.net/images/providerCategory/SBOGames/colorful-light-landscape.png?lang=en">
+    <link rel="shortcut icon" type="image/png" href="https://img-1-97.rapidflarecdn.net/images/providerCategory/SBOGames/colorful-light-landscape.png?lang=en">
+
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #050b14;
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =========================================================
+           MOBILE HEADER
+        ========================================================= */
+
+        .mobile-header-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #071326;
+            border-bottom: 1px solid #14284a;
+            padding: 0 15px;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+        }
+
+        .mobile-menu-btn {
+            background: #007bff;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mobile-active-provider-logo {
+            width: 155px;
+            height: 44px;
+            background: #121824;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .mobile-active-provider-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.3) contrast(1.15);
+        }
+
+        /* =========================================================
+           SIDEBAR OVERLAY
+        ========================================================= */
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+            width: 300px;
+            height: 100vh;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            background: #071326;
+            border-right: 1px solid #14284a;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform .3s ease;
+        }
+
+        .sidebar-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #14284a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-header h3 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .close-sidebar {
+            display: none;
+            background: none;
+            border: 0;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           PROVIDER GRID
+        ========================================================= */
+
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: calc(100vh - 65px);
+        }
+
+        .provider-card {
+            height: 45px;
+            background: #112238;
+            border: 1px solid #1b3866;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: .2s ease;
+        }
+
+        .provider-card:hover {
+            border-color: #3b82f6;
+            background: #102547;
+        }
+
+        .provider-card.active {
+            background: #007bff;
+            border-color: #60a5fa;
+            box-shadow: 0 0 8px rgba(0, 123, 255, .4);
+        }
+
+        .provider-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 7px;
+        }
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 25px;
+            background: #050b14;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================================
+           GAME GRID
+        ========================================================= */
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .game-card {
+            background: #0b1a32;
+            border: 1px solid #14284a;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            border-color: #3b82f6;
+        }
+
+        /* =========================================================
+           GAME IMAGE
+        ========================================================= */
+
+        .game-img {
+            position: relative;
+            width: 100%;
+            height: 130px;
+            background: #112238;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .game-img img.game-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* =========================================================
+           BADGE
+        ========================================================= */
+
+        .hot-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 3px 8px;
+            color: #fff;
+            font-size: 9px;
+            font-weight: bold;
+            border-bottom-right-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            z-index: 5;
+        }
+
+        .hot-badge.exclusive {
+            background: linear-gradient(135deg, #0759c9, #1683ff);
+            box-shadow: 0 2px 7px rgba(0, 100, 255, .35);
+        }
+
+        .hot-badge.new {
+            background: linear-gradient(135deg, #c91d2e, #ff3347);
+            box-shadow: 0 2px 7px rgba(255, 0, 40, .35);
+        }
+
+        /* =========================================================
+           POLA BUTTON
+        ========================================================= */
+
+        .pola-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(.9);
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 5px 13px;
+            border-radius: 5px;
+            border: 1px solid #60a5fa;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all .25s ease;
+            z-index: 10;
+        }
+
+        .game-img:hover .pola-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* =========================================================
+           GAME INFO
+        ========================================================= */
+
+        .game-info {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .game-title-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .game-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .game-title {
+            flex: 1;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* =========================================================
+           RTP BAR
+        ========================================================= */
+
+        .game-rtp-bar-container {
+            position: relative;
+            width: 100%;
+            height: 19px;
+            background: #1a2c4e;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =========================================================
+           RTP FILL
+        ========================================================= */
+
+        .game-rtp-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            border-radius: 4px 0 0 4px;
+            overflow: hidden;
+
+            transition:
+                width .5s ease,
+                background .3s ease;
+
+            transform: translateZ(0);
+            will-change: width;
+        }
+
+        /* =========================================================
+           DIAGONAL ANIMATION
+           
+           INI BAGIAN UTAMA YANG DIUBAH.
+
+           Garis diagonal dibuat lebih besar dan jelas,
+           seperti gambar kedua yang kamu kirim.
+        ========================================================= */
+
+        .game-rtp-fill::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            /*
+             * Pola diagonal besar:
+             * - bagian terang
+             * - bagian transparan
+             * - bagian gelap
+             *
+             * Semuanya dibuat miring 135deg.
+             */
+            background: repeating-linear-gradient(
+                135deg,
+                rgba(255, 255, 255, .22) 0px,
+                rgba(255, 255, 255, .22) 14px,
+
+                rgba(255, 255, 255, .05) 14px,
+                rgba(255, 255, 255, .05) 22px,
+
+                rgba(0, 0, 0, .14) 22px,
+                rgba(0, 0, 0, .14) 34px,
+
+                rgba(0, 0, 0, 0) 34px,
+                rgba(0, 0, 0, 0) 44px
+            );
+
+            /*
+             * Ukuran tile dibuat tetap agar looping
+             * tidak terlihat patah.
+             */
+            background-size: 44px 44px;
+
+            /*
+             * Gerakan diagonal horizontal.
+             */
+            background-position: 0 0;
+
+            animation:
+                rtpDiagonalMove .9s linear infinite;
+
+            will-change: background-position;
+            transform: translateZ(0);
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           RTP DIAGONAL KEYFRAME
+        ========================================================= */
+
+        @keyframes rtpDiagonalMove {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -44px 0;
+            }
+        }
+
+        /* =========================================================
+           RTP TEXT
+        ========================================================= */
+
+        .game-rtp-text {
+            position: relative;
+            z-index: 3;
+            font-size: 9px;
+            color: #fff;
+            font-weight: bold;
+
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, .8);
+
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           DEMO LABEL
+        ========================================================= */
+
+        .demo-label {
+            font-size: 8px;
+            color: #64748b;
+            text-align: center;
+            margin-top: -3px;
+        }
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .pola-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .78);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .pola-modal-overlay.active {
+            display: flex;
+        }
+
+        .pola-modal-box {
+            background: #0b172a;
+            border: 1px solid #1e3a6e;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .9);
+            animation: modalScaleUp .25s ease;
+        }
+
+        @keyframes modalScaleUp {
+            from {
+                transform: scale(.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* =========================================================
+           MODAL HEADER
+        ========================================================= */
+
+        .pola-modal-header {
+            background: #081120;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #14284a;
+        }
+
+        .pola-modal-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .pola-close-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* =========================================================
+           MODAL BODY
+        ========================================================= */
+
+        .pola-modal-body {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* =========================================================
+           INFO BOX
+        ========================================================= */
+
+        .pola-info-box {
+            background: #07101f;
+            border: 1px solid #162c4e;
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            font-size: 11px;
+        }
+
+        .pola-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pola-info-label {
+            color: #cbd5e1;
+            font-weight: bold;
+        }
+
+        .pola-info-value {
+            color: #fff;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* =========================================================
+           ACTION HEADER
+        ========================================================= */
+
+        .pola-action-btn {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================================
+           POLA BOX
+        ========================================================= */
+
+        .pola-pattern-box {
+            background: #07101f;
+            border: 1px solid #162c4e;
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .pola-pattern-title {
+            color: #94a3b8;
+            font-size: 11px;
+            margin-bottom: 12px;
+        }
+
+        .pola-pattern-value {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+           POLA STEP
+        ========================================================= */
+
+        .pattern-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .step-item {
+            background: #0b1a32;
+            border: 1px solid #1b3866;
+            border-radius: 7px;
+            padding: 9px 10px;
+            text-align: left;
+        }
+
+        .step-label {
+            color: #94a3b8;
+            font-size: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .step-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            flex-wrap: wrap;
+        }
+
+        .check {
+            color: #22c55e;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .cross {
+            color: #ef4444;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* =========================================================
+           NOTE
+        ========================================================= */
+
+        .pola-note {
+            color: #94a3b8;
+            font-size: 10px;
+            line-height: 1.5;
+            background: #07101f;
+            border: 1px solid #162c4e;
+            border-radius: 7px;
+            padding: 9px;
+        }
+
+        /* =========================================================
+           NEXT UPDATE
+        ========================================================= */
+
+        .next-update {
+            text-align: center;
+            font-size: 9px;
+            color: #64748b;
+            padding-top: 2px;
+        }
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            .mobile-header-bar {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 300px;
+                height: 100vh;
+                transform: translateX(-100%);
+                z-index: 1002;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .close-sidebar {
+                display: block;
+            }
+
+            .main-content {
+                padding: 75px 15px 20px 15px;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .pola-btn {
+                opacity: 1;
+                visibility: visible;
+                transform: translate(-50%, -50%) scale(.95);
+            }
+
+            .pola-modal-box {
+                max-width: 380px;
+            }
+        }
+
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================= */
+
+        @media (max-width: 380px) {
+
+            .sidebar {
+                width: 300px;
+            }
+
+            .mobile-active-provider-logo {
+                width: 145px;
+            }
+
+            .game-img {
+                height: 125px;
+            }
+
+            .game-title {
+                font-size: 10px;
+            }
+
+            .game-rtp-text {
+                font-size: 8px;
+            }
+
+            .step-action {
+                gap: 5px;
+            }
+        }
+    
+        /* =========================================================
+           PRAGMATIC-STYLE POLA MODAL
+        ========================================================== */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s ease;
+            padding: 15px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 380px;
+            background: #1a2233;
+            border: 1px solid #2d3748;
+            border-radius: 14px;
+            padding: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .6);
+            transform: scale(.8);
+            transition: transform .3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: #111827;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #27303f;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .modal-header h2 {
+            font-size: 15px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: 0;
+            color: #9ca3af;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .modal-info-box {
+            background: #111827;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            border: 1px solid #263142;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+
+        .info-row span:last-child {
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+
+        .pola-gacor-btn-title {
+            background: linear-gradient(180deg, #65a30d, #4d7c0f);
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border: 1px solid #65a30d;
+        }
+
+        .pola-steps-card {
+            background: #111827;
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #263142;
+            text-align: center;
+            margin-bottom: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .pola-steps-card .step-item {
+            margin-bottom: 10px;
+        }
+
+        .pola-steps-card .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pola-steps-card .step-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 3px;
+        }
+
+        .pola-steps-card .step-action {
+            font-size: 13px;
+            font-weight: bold;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pola-steps-card .check { color: #27ae60; }
+        .pola-steps-card .cross { color: #ef4444; }
+
+        .modal-footer-note {
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 380px) {
+            .modal-container { max-width: 360px; }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         MOBILE HEADER
+    ========================================================= -->
+
+    <div class="mobile-header-bar">
+
+        <button
+            class="mobile-menu-btn"
+            onclick="toggleSidebar()"
+        >
+            ☰ Providers
+        </button>
+
+        <div class="mobile-active-provider-logo">
+
+            <img
+                src="https://img-1-97.rapidflarecdn.net/images/providerCategory/SBOGames/colorful-light-landscape.png?lang=en"
+                alt="SBO"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+    ========================================================= -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="toggleSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
+
+    <aside
+        class="sidebar"
+        id="sidebarMenu"
+    >
+
+        <div class="sidebar-header">
+
+            <h3>Providers</h3>
+
+            <button
+                class="close-sidebar"
+                onclick="toggleSidebar()"
+            >
+                &times;
+            </button>
+
+        </div>
+
+        <div
+            class="providers-grid"
+            id="providersGrid"
+        ></div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
+
+    <main class="main-content">
+
+        <div
+            class="content-header"
+            id="contentTitle"
+        >
+            SBO Games
+        </div>
+
+        <div
+            class="games-grid"
+            id="gamesContainer"
+        ></div>
+
+    </main>
+
+
+    <!-- =========================================================
+         MODAL POLA
+    ========================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="polaModal"
+        onclick="closePolaModal(event)"
+    >
+
+        <div
+            class="modal-container"
+            onclick="event.stopPropagation()"
+        >
+
+            <div class="modal-header">
+
+                <h2 id="modalGameTitle">
+                    GAME
+                </h2>
+
+                <button
+                    class="modal-close"
+                    onclick="forceCloseModal()"
+                >
+                    &times;
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="modal-info-box">
+
+                    <div class="info-row">
+                        <span>Stake bet :</span>
+                        <span id="modalStake">
+                            400 - 8.5k
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Jam Gacor :</span>
+                        <span id="modalJam">
+                            05:31 - 07:51
+                        </span>
+                    </div>
+
+                </div>
+
+                <div
+                    class="pola-gacor-btn-title"
+                    id="polaSectionTitle"
+                >
+                    Pola Gacor
+                </div>
+
+                <div
+                    class="pola-steps-card"
+                    id="modalContentCard"
+                >
+                    <div class="step-item">
+                        <div class="step-label">
+                            Panaskan Mesin !
+                        </div>
+                        <div class="step-action">
+                            20
+                            <span class="check">✔</span>
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            Auto
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-label">
+                            Naikkan Bet !
+                        </div>
+                        <div class="step-action">
+                            10
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                            Auto
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-label">
+                            Putaran akhir !
+                        </div>
+                        <div class="step-action">
+                            Manual 15
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="modal-footer-note"
+                    id="modalFooterNote"
+                >
+                    Catatan :<br>
+                    lakukan pola di atas minimal 2x!
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+        /* =========================================================
+           PROVIDERS
+        ========================================================= */
+
+        const providers = [
+
+            [
+                "SBO",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/SBOGames/colorful-light-landscape.png?lang=en",
+                "SBO Games.html"
+            ],
+
+            [
+                "PRAGMATIC PLAY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PragmaticPlay/colorful-light-landscape.png?lang=en",
+                "PRAGMATIC PLAY Games.html"
+            ],
+
+            [
+                "POP",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FatPanda/colorful-light-landscape.png?lang=en",
+                "POP Games.html"
+            ],
+
+            [
+                "PG SOFT",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PGSoft/colorful-light-landscape.png?lang=en",
+                "PG SOFT Games.html"
+            ],
+
+            [
+                "Spadegaming",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/SpadeGaming/colorful-light-landscape.png?lang=en",
+                "Spadegaming Games.html"
+            ],
+
+            [
+                "FA CHAI",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FaChai/colorful-light-landscape.png?lang=en",
+                "FA CHAI Games.html"
+            ],
+
+            [
+                "FAST SPIN",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FastSpin/colorful-light-landscape.png?lang=en",
+                "FASTSPIN Games.html"
+            ],
+
+            [
+                "FUNKY GAMES",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/FunkyGames/colorful-light-landscape.png?lang=en",
+                "FUNKY GAMES.html"
+            ],
+
+            [
+                "155",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/One55/colorful-light-landscape.png?lang=en",
+                "155 Games.html"
+            ],
+
+            [
+                "NEXTSPIN",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Nextspin/colorful-light-landscape.png?lang=en",
+                "NEXTSPIN Games.html"
+            ],
+
+            [
+                "SKYWIND GROUP",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Skywind/colorful-light-landscape.png?lang=en",
+                "SKYWIND GROUP Games.html"
+            ],
+
+            [
+                "ADVANT PLAY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AdvantPlay/colorful-light-landscape.png?lang=en",
+                "ADVANT PLAY Games.html"
+            ],
+
+            [
+                "Microgaming",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/MicroGaming/colorful-light-landscape.png?lang=en",
+                "Microgaming Games.html"
+            ],
+
+            [
+                "JILI",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Jili/colorful-light-landscape.png?lang=en",
+                "JILI Games.html"
+            ],
+
+            [
+                "JDB",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/JDB/colorful-light-landscape.png?lang=en",
+                "JDB Games.html"
+            ],
+
+            [
+                "NOLIMIT CITY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/NoLimitCity/colorful-light-landscape.png?lang=en",
+                "NOLIMIT CITY Games.html"
+            ],
+
+            [
+                "AA GAMING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AmazingArtGaming/colorful-light-landscape.png?lang=en",
+                "AA GAMING Games.html"
+            ],
+
+            [
+                "JOKER",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Joker/colorful-light-landscape.png?lang=en",
+                "JOKER Games.html"
+            ],
+
+            [
+                "HACKSAW",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Hacksaw/colorful-light-landscape.png?lang=en",
+                "HACKSAW Games.html"
+            ],
+
+            [
+                "TURBO GAMES",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/TurboGames/colorful-light-landscape.png?lang=en",
+                "TURBO GAMES.html"
+            ],
+
+            [
+                "PLAYTECH",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Playtech/colorful-light-landscape.png?lang=en",
+                "PLAYTECH Games.html"
+            ],
+
+            [
+                "HABANERO",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Habanero/colorful-light-landscape.png?lang=en",
+                "HABANERO Games.html"
+            ],
+
+            [
+                "NOVOMATIC",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Novomatic/colorful-light-landscape.png?lang=en",
+                "NOVOMATIC Games.html"
+            ],
+
+            [
+                "RED TIGER",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/RedTiger/colorful-light-landscape.png?lang=en",
+                "RED TIGER Games.html"
+            ],
+
+            [
+                "SPRIBE",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Spribe/colorful-light-landscape.png?lang=en",
+                "SPRIBE Games.html"
+            ],
+
+            [
+                "PLAY'N GO",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PlaynGo/colorful-light-landscape.png?lang=en",
+                "PLAYN GO Games.html"
+            ],
+
+            [
+                "NETENT",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/NetEnt/colorful-light-landscape.png?lang=en",
+                "NETENT Games.html"
+            ],
+
+            [
+                "LIVE22",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Live22/colorful-light-landscape.png?lang=en",
+                "LIVE22 Games.html"
+            ],
+
+            [
+                "RSG",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/RSG/colorful-light-landscape.png?lang=en",
+                "RSG Games.html"
+            ],
+
+            [
+                "KINGMAKER",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/KingMaker/colorful-light-landscape.png?lang=en",
+                "KINGMAKER Games.html"
+            ],
+
+            [
+                "AVATARUX",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AvatarUX/colorful-light-landscape.png?lang=en",
+                "AVATARUX Games.html"
+            ],
+
+            [
+                "PENGUIN KING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/PenguinKing/colorful-light-landscape.png?lang=en",
+                "PENGUIN KING Games.html"
+            ],
+
+            [
+                "YGGDRASIL",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/Yggdrasil/colorful-light-landscape.png?lang=en",
+                "YGGDRASIL Games.html"
+            ],
+
+            [
+                "SIMPLEPLAY",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/SimplePlay/colorful-light-landscape.png?lang=en",
+                "SIMPLEPLAY Games.html"
+            ],
+
+            [
+                "EURASIAN GAMING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/EurasianGaming/colorful-light-landscape.png?lang=en",
+                "EURASIAN GAMING Games.html"
+            ],
+
+            [
+                "AI GAMING",
+                "https://img-1-97.rapidflarecdn.net/images/providerCategory/AIGaming/colorful-light-landscape.png?lang=en",
+                "AI GAMING Games.html"
+            ]
+
+        ];
+
+
+        /* =========================================================
+           GAME DATA
+        ========================================================= */
+
+        const games = [
+
+            {
+                id: "mahjong-roar",
+                name: "SBOTOP Mahjong Roar",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg5402749.png?version=3821f7ae&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/AdvantPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "hot-hot-sbotop",
+                name: "Hot Hot SBOTOP",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg2902789.png?version=fd3efd2f&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/Habanero/colorful-light.png",
+                badge: "NEW"
+            },
+
+            {
+                id: "triple-hop-pots",
+                name: "Triple Hop Pots",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg6202731.png?version=77ce4d94&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/FatPanda/colorful-light.png",
+                badge: ""
+            },
+
+            {
+                id: "mahjong-wins-3",
+                name: "SBOTOP Mahjong Wins 3 Black Scatter",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027693.png?version=8b7bb905&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "money-plane",
+                name: "Money Plane Bail2Win",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg51021001.png?version=4038b397&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/Hacksaw/colorful-light.webp",
+                badge: "NEW"
+            },
+
+            {
+                id: "sbotop-olympus",
+                name: "SBOTOP Olympus",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027204.png?version=006a4c80&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "sbotop-sweet-bonanza",
+                name: "SBOTOP Sweet Bonanza 1000",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027535.png?version=41479ef5&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "gatot-kaca",
+                name: "Gates of Gatot Kaca Super Scatter",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027635.png?version=624fef25&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "thunderline",
+                name: "Thunderline Express Hold and Win",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg7002775.png?version=dd76684d&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PenguinKing/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "wild-west",
+                name: "SBOTOP Wild West Gold",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027505.webp?version=3025f508&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "NEW"
+            },
+
+            {
+                id: "dragon-chis",
+                name: "SBOTOP Dragon Chi's Quest",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg5402710.png?version=0dddb2e5&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/AdvantPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "starlight-princess",
+                name: "SBOTOP Starlight Princess",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027459.png?version=30a7f0ab&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: ""
+            },
+
+            {
+                id: "pyramid-bonanza",
+                name: "SBOTOP Pyramid Bonanza",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027337.png?version=1b5940cd&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            },
+
+            {
+                id: "wisdom-athena",
+                name: "SBOTOP Wisdom of Athena",
+                img: "https://img-1-97.rapidflarecdn.net/images/games/GameImg24027429.png?version=ba9fdeae&lang=en",
+                logo: "https://img-1-97.rapidflarecdn.net/images/brandProvider/PragmaticPlay/colorful-light.png",
+                badge: "EXCLUSIVE"
+            }
+
+        ];
+
+
+        /* =========================================================
+           ELEMENT
+        ========================================================= */
+
+        const providersGrid =
+            document.getElementById("providersGrid");
+
+        const gamesContainer =
+            document.getElementById("gamesContainer");
+
+        const sidebar =
+            document.getElementById("sidebarMenu");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        const polaModal =
+            document.getElementById("polaModal");
+
+
+        /* =========================================================
+           35 MENIT SYSTEM
+        ========================================================= */
+
+        const UPDATE_INTERVAL = 35 * 60 * 1000;
+
+        function getPeriodIndex() {
+
+            return Math.floor(
+                Date.now() / UPDATE_INTERVAL
+            );
+
+        }
+
+
+        /* =========================================================
+           SEEDED RANDOM
+        ========================================================= */
+
+        function seededRandom(seed) {
+
+            const x =
+                Math.sin(seed) * 10000;
+
+            return x - Math.floor(x);
+
+        }
+
+
+        /* =========================================================
+           SIMULATED RTP
+        ========================================================= */
+
+        function getSimulatedRtp(gameIndex) {
+
+            const period =
+                getPeriodIndex();
+
+            const random =
+                seededRandom(
+                    period * 100 +
+                    gameIndex * 17
+                );
+
+            return 1 + random * 99;
+
+        }
+
+
+        /* =========================================================
+           RTP COLOR
+        ========================================================= */
+
+        function getRtpColor(rtp) {
+
+            if (rtp <= 35) {
+
+                return {
+                    background:
+                        "linear-gradient(90deg, #dc2626, #ef4444)",
+                    type: "red"
+                };
+
+            }
+
+            if (rtp <= 69) {
+
+                return {
+                    background:
+                        "linear-gradient(90deg, #eab308, #facc15)",
+                    type: "yellow"
+                };
+
+            }
+
+            return {
+                background:
+                    "linear-gradient(90deg, #15803d, #22c55e)",
+                type: "green"
+            };
+
+        }
+
+
+        /* =========================================================
+           SIMULATED PATTERN
+        ========================================================= */
+
+        function getSimulatedPattern(gameIndex) {
+
+            const period =
+                getPeriodIndex();
+
+            const seed =
+                period * 1000 +
+                gameIndex * 31;
+
+            const patterns = [
+
+                `
+                <div class="pattern-steps">
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Awal
+                        </div>
+
+                        <div class="step-action">
+                            Manual 10
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Berikutnya
+                        </div>
+
+                        <div class="step-action">
+                            Auto 20
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Akhir
+                        </div>
+
+                        <div class="step-action">
+                            Manual 15
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                `,
+
+                `
+                <div class="pattern-steps">
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Awal
+                        </div>
+
+                        <div class="step-action">
+                            Manual 10
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                            <span class="cross">✖</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Berikutnya
+                        </div>
+
+                        <div class="step-action">
+                            Auto 20
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Akhir
+                        </div>
+
+                        <div class="step-action">
+                            Manual 15
+                            <span class="check">✔</span>
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                `,
+
+                `
+                <div class="pattern-steps">
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Panaskan Mesin
+                        </div>
+
+                        <div class="step-action">
+                            Auto 20
+                            <span class="check">✔</span>
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Berikutnya
+                        </div>
+
+                        <div class="step-action">
+                            Auto 10
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-item">
+
+                        <div class="step-label">
+                            Putaran Akhir
+                        </div>
+
+                        <div class="step-action">
+                            Manual 15
+                            <span class="cross">✖</span>
+                            <span class="cross">✖</span>
+                            <span class="check">✔</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                `
+
+            ];
+
+            const index =
+                Math.floor(
+                    seededRandom(seed) *
+                    patterns.length
+                );
+
+            return patterns[index];
+
+        }
+
+
+        /* =========================================================
+           SIMULATED STATUS
+        ========================================================= */
+
+        function getSimulatedStatus(gameIndex) {
+
+            const period =
+                getPeriodIndex();
+
+            const value =
+                seededRandom(
+                    period * 77 +
+                    gameIndex * 9
+                );
+
+            if (value < 0.33) {
+                return "SIMULASI RENDAH";
+            }
+
+            if (value < 0.66) {
+                return "SIMULASI NORMAL";
+            }
+
+            return "SIMULASI TINGGI";
+
+        }
+
+
+        /* =========================================================
+           PERIOD TIME
+        ========================================================= */
+
+        function getPeriodStart() {
+
+            return new Date(
+                getPeriodIndex() *
+                UPDATE_INTERVAL
+            );
+
+        }
+
+
+        function getNextUpdate() {
+
+            return new Date(
+                (getPeriodIndex() + 1) *
+                UPDATE_INTERVAL
+            );
+
+        }
+
+
+        /* =========================================================
+           FORMAT TIME
+        ========================================================= */
+
+        function formatTime(date) {
+
+            return date.toLocaleTimeString(
+                "id-ID",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           RENDER PROVIDERS
+        ========================================================= */
+
+        function renderProviders() {
+
+            providersGrid.innerHTML = "";
+
+            providers.forEach(
+                ([name, image, file]) => {
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className =
+                        "provider-card";
+
+                    if (
+                        name.toLowerCase() === "sbo"
+                    ) {
+                        card.classList.add("active");
+                    }
+
+                    card.innerHTML = `
+
+                        <img
+                            src="${image}"
+                            alt="${name}"
+                            loading="lazy"
+                        >
+
+                    `;
+
+                    card.addEventListener(
+                        "click",
+                        () => {
+
+                            window.location.href =
+                                file;
+
+                        }
+                    );
+
+                    providersGrid.appendChild(card);
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           UPDATE RTP VALUES
+        ========================================================= */
+
+        function updateRtpValues() {
+
+            const cards =
+                document.querySelectorAll(
+                    ".game-card"
+                );
+
+            cards.forEach(
+                (card, index) => {
+
+                    const rtp =
+                        getSimulatedRtp(index);
+
+                    const fill =
+                        card.querySelector(
+                            ".game-rtp-fill"
+                        );
+
+                    const text =
+                        card.querySelector(
+                            ".game-rtp-text"
+                        );
+
+                    if (!fill || !text) {
+                        return;
+                    }
+
+                    const rounded =
+                        Math.round(rtp);
+
+                    const color =
+                        getRtpColor(rounded);
+
+                    const width =
+                        Math.min(
+                            100,
+                            Math.max(
+                                1,
+                                rounded
+                            )
+                        );
+
+                    /*
+                     * Nilai RTP menentukan panjang bar.
+                     */
+                    fill.style.width =
+                        width + "%";
+
+                    /*
+                     * Warna dasar bar.
+                     */
+                    fill.style.background =
+                        color.background;
+
+                    /*
+                     * Teks persentase.
+                     */
+                    text.textContent =
+                        rounded + "%";
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           RENDER GAMES
+        ========================================================= */
+
+        function renderGames() {
+
+            gamesContainer.innerHTML = "";
+
+            games.forEach(
+                (game, index) => {
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className =
+                        "game-card";
+
+                    card.dataset.gameId =
+                        game.id;
+
+
+                    /* BADGE */
+
+                    let badgeHTML = "";
+
+                    if (game.badge) {
+
+                        badgeHTML = `
+
+                            <div
+                                class="hot-badge ${game.badge.toLowerCase()}"
+                            >
+                                ${game.badge}
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /* LOGO */
+
+                    let gameLogoHTML = "";
+
+                    if (game.logo) {
+
+                        gameLogoHTML = `
+
+                            <img
+                                src="${game.logo}"
+                                class="game-icon"
+                                alt="${game.name}"
+                                loading="lazy"
+                            >
+
+                        `;
+
+                    }
+
+
+                    /* CARD */
+
+                    card.innerHTML = `
+
+                        <div class="game-img">
+
+                            ${badgeHTML}
+
+                            <img
+                                class="game-cover"
+                                src="${game.img}"
+                                alt="${game.name}"
+                                loading="lazy"
+                                onerror="this.style.display='none';"
+                            >
+
+                            <button
+                                class="pola-btn"
+                                type="button"
+                            >
+                                POLA
+                            </button>
+
+                        </div>
+
+
+                        <div class="game-info">
+
+                            <div class="game-title-row">
+
+                                ${gameLogoHTML}
+
+                                <div class="game-title">
+                                    ${game.name}
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="game-rtp-bar-container"
+                            >
+
+                                <div
+                                    class="game-rtp-fill"
+                                ></div>
+
+                                <div
+                                    class="game-rtp-text"
+                                >
+                                    --
+                                </div>
+
+                            </div>
+
+
+                            <div class="demo-label">
+                                Statistik simulasi
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    /* POLA BUTTON */
+
+                    const polaButton =
+                        card.querySelector(
+                            ".pola-btn"
+                        );
+
+                    polaButton.addEventListener(
+                        "click",
+                        event => {
+
+                            event.stopPropagation();
+
+                            openPolaModal(
+                                game,
+                                index
+                            );
+
+                        }
+                    );
+
+
+                    gamesContainer.appendChild(card);
+
+                }
+            );
+
+
+            updateRtpValues();
+
+        }
+
+
+        /* =========================================================
+           OPEN MODAL
+        ========================================================= */
+
+        function getPopupStake(gameIndex) {
+
+            const options = [
+                "200 - 5.0k",
+                "400 - 8.5k",
+                "500 - 10k",
+                "1.000 - 15.0k"
+            ];
+
+            const period = getPeriodIndex();
+            const index = Math.floor(
+                seededRandom(period * 701 + gameIndex * 13) * options.length
+            );
+
+            return options[index];
+
+        }
+
+
+        function getPopupJam(gameIndex) {
+
+            const period = getPeriodIndex();
+            const seed = period * 1703 + gameIndex * 29;
+            const startMinutes = Math.floor(
+                seededRandom(seed) * 1440
+            );
+            const duration = 15 + Math.floor(
+                seededRandom(seed + 1) * 30
+            );
+
+            const endMinutes =
+                (startMinutes + duration) % 1440;
+
+            const format = minutes => {
+                const hour = Math.floor(minutes / 60);
+                const minute = minutes % 60;
+                return String(hour).padStart(2, "0") + ":" +
+                    String(minute).padStart(2, "0");
+            };
+
+            return format(startMinutes) + " - " + format(endMinutes);
+
+        }
+
+
+        function openPolaModal(game, gameIndex) {
+
+            document
+                .getElementById("modalGameTitle")
+                .innerText =
+                game.name.toUpperCase();
+
+            document
+                .getElementById("modalStake")
+                .innerText =
+                getPopupStake(gameIndex);
+
+            document
+                .getElementById("modalJam")
+                .innerText =
+                getPopupJam(gameIndex);
+
+            document
+                .getElementById("polaSectionTitle")
+                .innerText =
+                "Pola Gacor";
+
+            document
+                .getElementById("modalContentCard")
+                .innerHTML =
+                getSimulatedPattern(gameIndex);
+
+            document
+                .getElementById("modalFooterNote")
+                .innerHTML =
+                "Catatan :<br>lakukan pola di atas minimal 2x!";
+
+            document
+                .getElementById("polaModal")
+                .classList.add("active");
+
+        }
+
+
+        function forceCloseModal() {
+
+            document
+                .getElementById("polaModal")
+                .classList.remove("active");
+
+        }
+
+
+        function closePolaModal(event) {
+
+            if (
+                event &&
+                event.target !==
+                document.getElementById("polaModal")
+            ) {
+                return;
+            }
+
+            forceCloseModal();
+
+        }
+
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "Escape") {
+                    forceCloseModal();
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           MOBILE SIDEBAR
+        ========================================================= */
+
+        function toggleSidebar() {
+
+            sidebar.classList.toggle(
+                "active"
+            );
+
+            overlay.classList.toggle(
+                "active"
+            );
+
+        }
+
+
+        /* =========================================================
+           AUTO UPDATE 35 MENIT
+        ========================================================= */
+
+        let lastPeriod =
+            getPeriodIndex();
+
+
+        setInterval(
+            () => {
+
+                const currentPeriod =
+                    getPeriodIndex();
+
+                if (
+                    currentPeriod !==
+                    lastPeriod
+                ) {
+
+                    lastPeriod =
+                        currentPeriod;
+
+                    updateRtpValues();
+
+                }
+
+            },
+            1000
+        );
+
+
+        /* =========================================================
+           INIT
+        ========================================================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                renderProviders();
+                renderGames();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
