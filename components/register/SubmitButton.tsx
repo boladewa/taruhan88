@@ -2,7 +2,7 @@
 
 export default function SubmitButton() {
   const handleWhatsApp = () => {
-    window.open("https://wa.link/mybvkd", "_blank");
+    window.open("https://wa.link/j9x3w6", "_blank");
   };
 
   return (
